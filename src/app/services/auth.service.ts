@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {SignIn} from '../models/signIn';
 
 @Injectable({
   providedIn: 'root'
@@ -6,10 +7,14 @@ import {Injectable} from '@angular/core';
 export class AuthService {
   private isLoggedIn = false;
 
-  login(email: string, password: string): boolean {
+  login(): boolean {
     // Simula il login
     this.isLoggedIn = true;
     return this.isLoggedIn;
+  }
+
+  register(signIn:SignIn): void {
+    console.log(signIn);
   }
 
   logout(): void {

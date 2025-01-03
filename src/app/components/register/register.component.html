@@ -1,35 +1,36 @@
 <div class="h-100 d-flex align-items-center justify-content-center">
-<div class="register-wrapper ">
+  <div class="register-wrapper ">
     <div class="card">
       <div class="card-body">
-        <form class="form-register">
+        <form class="form-register" (ngSubmit)="submitRegister(registerForm)" #registerForm="ngForm">
           <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
           <div class="mt-1">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="example@mail.com">
+            <input [(ngModel)]="signIn.email" type="email" class="form-control" id="email" name="email"
+                   placeholder="example@mail.com" required email #email="ngModel"
+                   [class.is-invalid]="email.invalid && email.dirty">
+            <div class="invalid-feedback" *ngIf="email.invalid && email.dirty">
+              Inserisci una email corretta!
+            </div>
           </div>
 
           <div class="mt-1">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password">
+            <label for="password" class="form-label">Password</label>
+            <input [(ngModel)]="signIn.password" type="password" class="form-control" id="password" name="password"
+                   required minlength="8" #password="ngModel" [class.is-invalid]="password.invalid && password.dirty">
+            <div class="invalid-feedback" *ngIf="password.invalid && password.dirty">
+              La password deve essere lunga almeno 8 caratteri!
+            </div>
           </div>
 
-          <div class="mt-1">
-          <label for="confirmPassword" class="form-label">Conferma Password</label>
-          <input type="password" class="form-control" id="confirmPassword">
-          </div>
-
-          <button type="submit" class="btn btn-primary mt-4 mb-2">Registrati</button>
+          <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary mt-4 mb-2">Registrati</button>
 
           <div class="mt-1">
             <p>Hai già un account? <a class="link-opacity-100" (click)="goToLogin()">Accedi</a></p>
           </div>
 
           <div class="alert alert-danger" role="alert" *ngIf="false">
-            Riempi tutti i campi.
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="false">
-            Le password non corrispondo!
+            Errore!
           </div>
         </form>
       </div>

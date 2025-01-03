@@ -1,25 +1,33 @@
 import {Component} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
+import {FormsModule, NgForm} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {SignIn} from '../../models/signIn';
 
 @Component({
   selector: 'app-register',
-  imports: [
-    FormsModule,
-    NgIf
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 
+  signIn: SignIn = <SignIn>{};
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
 
-  goToLogin(): void {
+  submitRegister(registerForm: NgForm): void {
+    if (registerForm.invalid) return;
+
+    this.authService.register(this.signIn);
+  }
+
+  goToLogin()
+    :
+    void {
     this.router.navigate(['login']);
   }
 }
