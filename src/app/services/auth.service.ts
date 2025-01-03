@@ -15,7 +15,6 @@ export class AuthService {
 
 
   register(signIn: SignIn): Observable<Object> {
-    console.log(this.baseUrl)
     return this.http.post(`${this.baseUrl}/register`, signIn)
   }
 
