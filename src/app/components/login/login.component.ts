@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [
+    NgIf,
+    FormsModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
-  login() {
-    // Simula l'autenticazione salvando un token
-    localStorage.setItem('authToken', 'dummy-token');
-    this.router.navigate(['/']); // Reindirizzamento
+
+  goToRegister(): void {
+    this.router.navigate(['register']);
   }
 }

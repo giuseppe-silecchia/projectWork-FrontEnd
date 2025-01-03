@@ -1,4 +1,33 @@
-<p>login works!</p>
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="login-wrapper">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-login">
+          <h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
+          <div class="mt-1">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="example@mail.com">
+          </div>
 
-<h2>Login</h2>
-<button (click)="login()">Simula Login</button>
+          <div class="mt-1">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-4 mb-2">Accedi</button>
+
+          <div class="mt-1">
+            <p>Non hai un account? <a class="link-opacity-100" (click)="goToRegister()">Registrati</a></p>
+          </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="false">
+            Riempi tutti i campi.
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="false">
+            Credenziali non valide!
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
