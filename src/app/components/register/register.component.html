@@ -18,19 +18,12 @@
             <label for="password" class="form-label">Password</label>
             <input [(ngModel)]="signIn.password" type="password" class="form-control" id="password" name="password"
                    required minlength="8" #password="ngModel" [class.is-invalid]="password.invalid && password.dirty">
-            <div class="invalid-feedback" *ngIf="password.invalid && password.dirty">
-              La password deve essere lunga almeno 8 caratteri!
-            </div>
           </div>
 
           <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary mt-4 mb-2">Registrati</button>
 
           <div class="mt-1">
             <p>Hai già un account? <a class="link-opacity-100" (click)="goToLogin()">Accedi</a></p>
-          </div>
-
-          <div class="alert alert-danger" role="alert" *ngIf="false">
-            Errore!
           </div>
         </form>
       </div>
