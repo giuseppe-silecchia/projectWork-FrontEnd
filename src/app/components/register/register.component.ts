@@ -22,7 +22,9 @@ export class RegisterComponent {
   submitRegister(registerForm: NgForm): void {
     if (registerForm.invalid) return;
 
-    this.authService.register(this.signIn);
+    this.authService.register(this.signIn).subscribe({
+      next: () => { console.log('Register successfully'); },
+    });
   }
 
   goToLogin()

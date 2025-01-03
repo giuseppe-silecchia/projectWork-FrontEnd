@@ -1,27 +1,23 @@
 import {Injectable} from '@angular/core';
 import {SignIn} from '../models/signIn';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isLoggedIn = false;
+  private baseUrl = environment.apiUrl+"/api";
 
-  login(): boolean {
-    // Simula il login
-    this.isLoggedIn = true;
-    return this.isLoggedIn;
+  constructor(private http: HttpClient) {
   }
 
-  register(signIn:SignIn): void {
-    console.log(signIn);
+
+  register(signIn: SignIn): Observable<Object> {
+    console.log(this.baseUrl)
+    return this.http.post(`${this.baseUrl}/register`, signIn)
   }
 
-  logout(): void {
-    this.isLoggedIn = false;
-  }
 
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
-  }
 }
