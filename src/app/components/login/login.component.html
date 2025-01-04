@@ -2,29 +2,28 @@
   <div class="login-wrapper">
     <div class="card">
       <div class="card-body">
-        <form class="form-login">
+        <form class="form-login"  (ngSubmit)="submitLogin(loginForm)" #loginForm="ngForm">
           <h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
           <div class="mt-1">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="example@mail.com">
+            <input [(ngModel)]="logIn.email" type="email" class="form-control" id="email" name="email"
+                   placeholder="example@mail.com" required email #email="ngModel"
+                   [class.is-invalid]="email.invalid && email.dirty">
+            <div class="invalid-feedback" *ngIf="email.invalid && email.dirty">
+              Inserisci una email corretta!
+            </div>
           </div>
 
           <div class="mt-1">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input [(ngModel)]="logIn.password" type="password" class="form-control" id="password" name="password"
+                   required minlength="8" #password="ngModel" [class.is-invalid]="password.invalid && password.dirty">
           </div>
 
-          <button type="submit" class="btn btn-primary mt-4 mb-2">Accedi</button>
+          <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary mt-4 mb-2">Accedi</button>
 
           <div class="mt-1">
             <p>Non hai un account? <a class="link-opacity-100" (click)="goToRegister()">Registrati</a></p>
-          </div>
-
-          <div class="alert alert-danger" role="alert" *ngIf="false">
-            Riempi tutti i campi.
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="false">
-            Credenziali non valide!
           </div>
         </form>
       </div>
