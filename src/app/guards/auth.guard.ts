@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {CanActivate, Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {
+  }
 
   canActivate(): boolean {
     const isAuthenticated = this.checkAuthentication(); // demo logic
@@ -18,10 +20,9 @@ export class AuthGuard implements CanActivate {
     return true; // Consenti l'accesso alla rotta
   }
 
-  // Logica per verificare se l'utente è autenticato //todo demo logic!
+  // Logica per verificare se l'utente è autenticato
   private checkAuthentication(): boolean {
 
-    const token = localStorage.getItem('authToken');
-    return !!token;
+    return !!this.authService.getAuthToken();
   }
 }
