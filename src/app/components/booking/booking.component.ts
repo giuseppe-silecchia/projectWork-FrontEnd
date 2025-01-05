@@ -39,7 +39,6 @@ export class BookingComponent {
 
   submitCheckRoomForm(checkRoomForm: NgForm) {
     if (checkRoomForm.invalid) return;
-    this.readonly = true;
     this.getFilteredRooms(this.booking.check_in, this.booking.check_out, this.booking.people);
   }
 
@@ -54,10 +53,12 @@ export class BookingComponent {
     this.loaderService.show();
     this.roomService.getAvailableRooms(checkIn, checkOut).subscribe({
       next: (rooms: Room[]) => {
+        this.readonly = true;
         this.loaderService.hide();
         this.availableRooms = rooms.filter((room) => room.max_people >= people);
       },
       error: () => {
+        this.readonly = true;
         this.loaderService.hide();
         this.toasterService.error("Riprovare.", "Errore!");
       }

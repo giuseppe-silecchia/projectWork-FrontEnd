@@ -41,13 +41,17 @@
     </div>
   </div>
 
-  <div class="room-container mt-5 mb-5">
-    <h2 *ngIf="availableRooms.length">Stanze disponibili:</h2>
+  <div class="room-container mt-5 mb-5" *ngIf="availableRooms.length">
+    <h2>Stanze disponibili:</h2>
     <div class="card mt-1" style="width: 350px" *ngFor="let room of availableRooms">
       <div class="card-body">
         <h5 class="card-title">Stanza {{ room.room_number }}</h5>
         <a (click)="bookRoom(checkRoomForm,room)" class="btn btn-primary w-100">Prenota questa stanza</a>
       </div>
     </div>
+  </div>
+
+  <div class="text-center mt-5" *ngIf="availableRooms.length===0 && readonly">
+    <h5>Nessuna stanza è disponibile per le date richieste</h5>
   </div>
 </div>
