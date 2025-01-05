@@ -1,0 +1,22 @@
+.reservation {
+  height: 360px;
+}
+.reservations-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 1250px) {
+  .reservations-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .reservations-container {
+    grid-template-columns:  repeat(1, 1fr);
+  }
+}
