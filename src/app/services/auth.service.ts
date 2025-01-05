@@ -9,7 +9,7 @@ import {LogIn} from '../models/logIn';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiUrl + "/api";
+  private baseUrl = environment.apiUrl;
   private storageKey = "authToken";
 
 
