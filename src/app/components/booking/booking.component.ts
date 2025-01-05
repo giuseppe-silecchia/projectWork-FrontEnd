@@ -54,7 +54,7 @@ export class BookingComponent {
       next: (rooms: Room[]) => {
         this.availableRooms = rooms.filter((room) => room.max_people >= people);
       },
-      error: (err) => {
+      error: () => {
         this.toasterService.error("Riprovare.", "Errore!");
       }
     })
@@ -69,7 +69,7 @@ export class BookingComponent {
       next: () => {
         this.resetForm(form);
         this.toasterService.success("Prenotazione effettuata", "Fatto!", {timeOut: 2000});
-      }, error: (err) => {
+      }, error: () => {
         this.toasterService.error(`Errore durante la prenotazione della camera ${room.id}.`, "Errore!");
       }
     })
