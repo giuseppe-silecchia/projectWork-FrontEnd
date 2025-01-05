@@ -5,6 +5,7 @@ import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@ang
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideToastr} from 'ngx-toastr';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {provideSpinnerConfig} from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
       progressAnimation: 'decreasing',
       timeOut: 5000
     }),
+    provideSpinnerConfig({type:'ball-clip-rotate'})
   ]
 };
