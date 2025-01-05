@@ -39,7 +39,7 @@ export class AuthService {
     localStorage.setItem(this.storageKey, token);
   }
 
-  private signOut() {
+  signOut() {
     localStorage.removeItem(this.storageKey);
   }
 }
