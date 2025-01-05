@@ -7,10 +7,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-reservation',
-  imports: [
-    NgForOf,
-    DatePipe
-  ],
+  imports: [NgForOf, DatePipe],
   templateUrl: './reservation.component.html',
   styleUrl: './reservation.component.css'
 })

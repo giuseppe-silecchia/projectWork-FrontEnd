@@ -1,38 +1,45 @@
 <div class="container mt-2 mb-5">
   <h1>Le tue prenotazioni:</h1>
   <h6>Potrai cancellare solo le prontazioni future.</h6>
-  <div class="reservations-container mt-4">
-    <div class="reservation" *ngFor="let reservation of userReservations">
-      <div class="card mt-1" style="width: 350px; height: fit-content">
-        <div class="card-body">
-          <h4 class="card-title">Prenotazione #{{ reservation.id }}</h4>
-          <div class="d-flex align-items-center">
-            <strong class="me-2">Check-In:</strong>
-            <span>{{ reservation.check_in | date: 'dd/MM/yyyy' }}</span>
-          </div>
-          <div class="d-flex align-items-center">
-            <strong class="me-2">Check-Out:</strong>
-            <span>{{ reservation.check_out | date: 'dd/MM/yyyy' }}</span>
-          </div>
-          <div class="d-flex align-items-center">
-            <strong class="me-2">Stanza:</strong>
-            <span>{{ reservation.room != null ? reservation.room.room_number : 'Stanza non trovata' }}</span>
-          </div>
-          <div style="height: 45px">
-            @if (canCancel(reservation)) {
-              <button type="button" class="btn btn-outline-danger mt-2 w-100"
-                      (click)="cancelReservation(reservation)">
-                Cancella prenotazione
-              </button>
-            } @else {
-              <button type="button" class="btn btn-outline-alert mt-2 w-100" disabled="disabled"
-                      (click)="cancelReservation(reservation)">
-                Prenotazione non cancellabile
-              </button>
-            }
+
+  @if (userReservations.length > 0) {
+    <div class="reservations-container mt-4">
+      <div class="reservation" *ngFor="let reservation of userReservations">
+        <div class="card mt-1" style="width: 350px; height: fit-content">
+          <div class="card-body">
+            <h4 class="card-title">Prenotazione #{{ reservation.id }}</h4>
+            <div class="d-flex align-items-center">
+              <strong class="me-2">Check-In:</strong>
+              <span>{{ reservation.check_in | date: 'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <strong class="me-2">Check-Out:</strong>
+              <span>{{ reservation.check_out | date: 'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <strong class="me-2">Stanza:</strong>
+              <span>{{ reservation.room != null ? reservation.room.room_number : 'Stanza non trovata' }}</span>
+            </div>
+            <div style="height: 45px">
+              @if (canCancel(reservation)) {
+                <button type="button" class="btn btn-outline-danger mt-2 w-100"
+                        (click)="cancelReservation(reservation)">
+                  Cancella prenotazione
+                </button>
+              } @else {
+                <button type="button" class="btn btn-outline-alert mt-2 w-100" disabled="disabled"
+                        (click)="cancelReservation(reservation)">
+                  Prenotazione non cancellabile
+                </button>
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  } @else {
+    <div class="mt-5 text-center">
+      <h2>Nessuna prenotazione trovata</h2>
+    </div>
+  }
 </div>
