@@ -7,6 +7,26 @@
         <form class="form-register" (ngSubmit)="submitRegister(registerForm)" #registerForm="ngForm">
           <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
           <div class="mt-1">
+            <label for="firstName" class="form-label">Nome</label>
+            <input [(ngModel)]="signIn.firstName" type="text" class="form-control" id="firstName" name="firstName"
+                   placeholder="Mario" required #firstName="ngModel"
+                   [class.is-invalid]="firstName.invalid && firstName.dirty">
+            <div class="invalid-feedback" *ngIf="firstName.invalid && firstName.dirty">
+              Campo obbligatorio!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="lastName" class="form-label">Cognome</label>
+            <input [(ngModel)]="signIn.lastName" type="text" class="form-control" id="lastName" name="lastName"
+                   placeholder="Rossi" required #lastName="ngModel"
+                   [class.is-invalid]="lastName.invalid && lastName.dirty">
+            <div class="invalid-feedback" *ngIf="lastName.invalid && lastName.dirty">
+              Campo obbligatorio!
+            </div>
+          </div>
+
+          <div class="mt-1">
             <label for="email" class="form-label">Email</label>
             <input [(ngModel)]="signIn.email" type="email" class="form-control" id="email" name="email"
                    placeholder="example@mail.com" required email #email="ngModel"
