@@ -19,7 +19,7 @@ export class NavbarComponent {
   }
 
   goToHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['home']);
   }
 
   logout(): void {
