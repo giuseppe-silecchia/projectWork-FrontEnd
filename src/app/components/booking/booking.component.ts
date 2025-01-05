@@ -6,6 +6,7 @@ import {Booking} from '../../models/booking';
 import {NgForOf, NgIf} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {BookingService} from '../../services/models/booking.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class BookingComponent {
   dateError: boolean = false;
   readonly: boolean = false;
 
-  constructor(private roomService: RoomService, private toasterService: ToastrService, private bookingService: BookingService) {
+  constructor(private roomService: RoomService, private toasterService: ToastrService, private bookingService: BookingService, private loaderService: NgxSpinnerService) {
   }
 
   protected availableRooms: Room[] = [];
@@ -44,17 +45,20 @@ export class BookingComponent {
 
   resetForm(checkRoomForm: NgForm) {
     this.availableRooms = [];
-    this.booking = <Booking>{people: 1};
     this.readonly = false;
     checkRoomForm.resetForm();
+    this.booking = <Booking>{people: 1};
   }
 
   getFilteredRooms(checkIn: string, checkOut: string, people: number): void {
+    this.loaderService.show();
     this.roomService.getAvailableRooms(checkIn, checkOut).subscribe({
       next: (rooms: Room[]) => {
+        this.loaderService.hide();
         this.availableRooms = rooms.filter((room) => room.max_people >= people);
       },
       error: () => {
+        this.loaderService.hide();
         this.toasterService.error("Riprovare.", "Errore!");
       }
     })
@@ -65,11 +69,15 @@ export class BookingComponent {
     if (room.id == null) return;
 
     this.booking.room_id = room.id;
+
+    this.loaderService.show();
     this.bookingService.createBooking(this.booking).subscribe({
       next: () => {
+        this.loaderService.hide();
         this.resetForm(form);
         this.toasterService.success("Prenotazione effettuata", "Fatto!", {timeOut: 2000});
       }, error: () => {
+        this.loaderService.hide();
         this.toasterService.error(`Errore durante la prenotazione della camera ${room.id}.`, "Errore!");
       }
     })
