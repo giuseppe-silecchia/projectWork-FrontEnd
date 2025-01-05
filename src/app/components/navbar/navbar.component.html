@@ -16,7 +16,11 @@
         <a class="nav-link" [class.active]="currentRoute('/prenota')" (click)="goToBookPage()">Prenota Camera</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [class.active]="currentRoute('/prenotazioni')" (click)="goToReservationPage()">Le tue prenotazioni</a>
+        <a class="nav-link" [class.active]="currentRoute('/prenotazioni')" (click)="goToReservationPage()">Le tue
+          prenotazioni</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="currentRoute('/profilo')" (click)="goToProfile()">Il tuo profilo</a>
       </li>
     </ul>
     <button class="btn btn-sm btn-outline-danger" type="button" (click)="logout()">Logout</button>

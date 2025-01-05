@@ -34,6 +34,10 @@ export class NavbarComponent {
     this.router.navigate(['prenotazioni']);
   }
 
+  goToProfile(): void {
+    this.router.navigate(['profilo']);
+  }
+
   currentRoute(route: String): boolean {
     return this.router.url === route;
   }
