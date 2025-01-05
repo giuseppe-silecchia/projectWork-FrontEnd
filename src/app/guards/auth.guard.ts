@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
 
   // Logica per verificare se l'utente è autenticato
   private checkAuthentication(): boolean {
-
     return !!this.authService.getAuthToken();
   }
 }

@@ -2,10 +2,11 @@ import {catchError, Observable, throwError} from 'rxjs';
 import {AuthService} from '../services/auth.service';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router: Router) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -22,11 +23,16 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
-            //TODO! redirect to logoun
+            this.authService.signOut();
+            this.goToLogin();
           }
         }
         return throwError(err);
       })
     )
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['login']);
   }
 }
