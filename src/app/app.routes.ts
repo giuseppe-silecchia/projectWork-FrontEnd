@@ -6,6 +6,7 @@ import {AppViewerComponent} from './components/app-viewer/app-viewer.component';
 import {AuthGuard} from './guards/auth.guard';
 import {BookingComponent} from './components/booking/booking.component';
 import {HomeComponent} from './components/home/home.component';
+import {ReservationComponent} from './components/reservation/reservation.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
         path: 'prenota', // Sotto rotta
         component: BookingComponent,
       },
+      {
+        path: 'prenotazioni', // Sotto rotta
+        component: ReservationComponent
+      }
     ],
   },
   {path: 'register', component: RegisterComponent},

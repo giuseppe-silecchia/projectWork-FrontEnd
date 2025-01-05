@@ -6,9 +6,7 @@ import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-navbar',
-  imports: [
-    NgbCollapse
-  ],
+  imports: [NgbCollapse],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -30,6 +28,10 @@ export class NavbarComponent {
 
   goToBookPage(): void {
     this.router.navigate(['prenota']);
+  }
+
+  goToReservationPage(): void {
+    this.router.navigate(['prenotazioni']);
   }
 
   currentRoute(route: String): boolean {
