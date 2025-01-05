@@ -3,15 +3,21 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {UserService} from '../../services/models/user.service';
 import {User} from '../../models/user';
 import {ToastrService} from 'ngx-toastr';
+import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf
+  ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent implements OnInit {
-  currentUser?: User;
+  currentUser: User | null = null;
 
   constructor(private loaderService: NgxSpinnerService, private userService: UserService, private toasterService: ToastrService) {
   }
@@ -26,6 +32,7 @@ export class UserComponent implements OnInit {
     this.userService.getSelfInformation().subscribe({
       next: (user: User) => {
         this.currentUser = user;
+        console.log(user);
         this.loaderService.hide();
       }, error: () => {
         this.loaderService.hide();
@@ -33,4 +40,21 @@ export class UserComponent implements OnInit {
       }
     });
   }
+
+  submitUserForm(userForm: NgForm) {
+    if (!userForm.valid || !this.currentUser) return;
+
+    this.loaderService.show();
+    this.userService.updateSelfInformation(this.currentUser).subscribe({
+      next: () => {
+        this.loaderService.hide();
+        this.toasterService.success(`Informazioni Aggiornate`);
+        this.getSelfInformation()
+      },
+      error: () => {
+        this.loaderService.hide();
+        this.toasterService.error('Errore');
+      }
+    })
+  };
 }

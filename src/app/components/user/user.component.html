@@ -1,1 +1,50 @@
-<p>user works!</p>
+<div class="container w-100 d-flex flex-column justify-content-center align-items-center mt-5">
+  <div class="card" style="width: 350px">
+    <div class="card-body">
+      <h1 class="h3 mb-3 font-weight-normal">Le tue informazioni</h1>
+
+      <form class="form-user" *ngIf="currentUser" (ngSubmit)="submitUserForm(userForm)" #userForm="ngForm">
+        <div class="form-group mt-2">
+          <label class="active" for="firstName">Nome</label>
+          <input [(ngModel)]="currentUser.first_name"
+                 class="form-control" type="text" id="firstName"
+                 name="firstName" required
+                 #firstName="ngModel" [class.is-invalid]="firstName.invalid && firstName.dirty ">
+          <div class="invalid-feedback">
+            Il nome è obbligatorio!
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label class="active" for="lastName">Cognome</label>
+          <input [(ngModel)]="currentUser.last_name"
+                 class="form-control" type="text" id="lastName"
+                 name="lastName" required
+                 #lastName="ngModel" [class.is-invalid]="lastName.invalid && lastName.dirty ">
+          <div class="invalid-feedback">
+            Il Cognome è obbligatorio!
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label for="email" class="form-label">Email</label>
+          <input [(ngModel)]="currentUser.email" type="email" class="form-control" id="email" name="email"
+                 placeholder="example@mail.com" required email #email="ngModel"
+                 [class.is-invalid]="email.invalid && email.dirty">
+          <div class="invalid-feedback" *ngIf="email.invalid && email.dirty">
+            Inserisci una email corretta!
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label for="password" class="form-label">Cambia Password</label>
+          <input [(ngModel)]="currentUser.password" type="password" class="form-control" id="password" name="password"
+                 minlength="8" #password="ngModel" [class.is-invalid]="password.invalid && password.dirty">
+          <div class="invalid-feedback" *ngIf="password.invalid && password.dirty">
+            Deve essere lunga almeno 8 caratteri!
+          </div>
+        </div>
+        <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary mt-4 mb-2 w-100">
+          Aggiorna informazioni
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

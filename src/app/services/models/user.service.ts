@@ -17,4 +17,8 @@ export class UserService {
     return this.http.get<User>(`${this.userEndpoint}/me`);
   }
 
+  updateSelfInformation(user: User): Observable<Object> {
+    console.log(user.password);
+    return this.http.patch(`${this.userEndpoint}/me`, user);
+  }
 }
