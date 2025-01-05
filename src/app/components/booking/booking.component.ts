@@ -33,10 +33,7 @@ export class BookingComponent {
     const checkInDate = new Date(this.booking.check_in);
     const checkOutDate = new Date(this.booking.check_out);
 
-    console.log(this.dateError)
-
     this.dateError = checkInDate && checkOutDate ? checkInDate >= checkOutDate : false
-
   }
 
   submitCheckRoomForm(checkRoomForm: NgForm) {
