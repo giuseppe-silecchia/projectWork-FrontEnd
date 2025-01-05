@@ -1,0 +1,57 @@
+<div class="container w-100 d-flex flex-column justify-content-center align-items-center mt-5">
+  <div class="card" style="width: 350px">
+    <div class="card-body">
+      <form class="form-booking" (ngSubmit)="submitCheckRoomForm(checkRoomForm)" #checkRoomForm="ngForm">
+        <h1 class="h3 mb-3 font-weight-normal">Prenota una stanza</h1>
+        <div class="form-group">
+          <label class="active" for="checkIn">Data Check In</label>
+          <input [(ngModel)]="booking.check_in" (change)="validateDates()" [readOnly]="this.readonly"
+                 class="form-control" type="date" id="checkIn"
+                 name="checkIn" required
+                 #checkIn="ngModel" [class.is-invalid]="checkIn.invalid && checkIn.dirty || dateError">
+        </div>
+        <div class="form-group mt-2">
+          <label class="active" for="checkOut">Data Check Out</label>
+          <input [(ngModel)]="booking.check_out" (change)="validateDates()" [readOnly]="this.readonly"
+                 class="form-control" type="date"
+                 id="checkOut" name="checkOut"
+                 required
+                 #checkOut="ngModel" [class.is-invalid]="checkOut.invalid && checkOut.dirty || dateError">
+          <div class="invalid-feedback">
+            La data del check-in deve essere antecedente a quella del check-out!
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label class="active" for="people">Persone</label>
+          <input [(ngModel)]="booking.people" [readOnly]="this.readonly" class="form-control" type="number" id="people"
+                 name="people" min="1"
+                 step="1" required #people="ngModel" [class.is-invalid]="people.invalid && people.dirty">
+        </div>
+
+        <button type="submit" [disabled]="checkRoomForm.invalid || dateError" *ngIf="!this.readonly"
+                class="btn btn-primary mt-4 mb-2 w-100">
+          Vedi stanze disponbili
+        </button>
+
+        <button type="submit" (click)="resetForm(checkRoomForm)" [disabled]="! this.readonly" *ngIf="this.readonly"
+                class="btn btn-secondary mt-4 mb-2 w-100">
+          Nuova Ricerca
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="room-container mt-5 mb-5" *ngIf="availableRooms.length">
+    <h2>Stanze disponibili:</h2>
+    <div class="card mt-1" style="width: 350px" *ngFor="let room of availableRooms">
+      <div class="card-body">
+        <h5 class="card-title">Stanza {{ room.room_number }}</h5>
+        <a (click)="bookRoom(checkRoomForm,room)" class="btn btn-primary w-100">Prenota questa stanza</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5" *ngIf="availableRooms.length===0 && readonly">
+    <h5>Nessuna stanza è disponibile per le date richieste</h5>
+  </div>
+</div>

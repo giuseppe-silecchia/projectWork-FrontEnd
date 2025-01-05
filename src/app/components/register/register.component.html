@@ -1,0 +1,57 @@
+<ngx-spinner size="medium" color="#009dff"></ngx-spinner>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="register-wrapper ">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-register" (ngSubmit)="submitRegister(registerForm)" #registerForm="ngForm">
+          <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
+          <div class="mt-1">
+            <label for="firstName" class="form-label">Nome</label>
+            <input [(ngModel)]="signIn.firstName" type="text" class="form-control" id="firstName" name="firstName"
+                   placeholder="Mario" required #firstName="ngModel"
+                   [class.is-invalid]="firstName.invalid && firstName.dirty">
+            <div class="invalid-feedback" *ngIf="firstName.invalid && firstName.dirty">
+              Campo obbligatorio!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="lastName" class="form-label">Cognome</label>
+            <input [(ngModel)]="signIn.lastName" type="text" class="form-control" id="lastName" name="lastName"
+                   placeholder="Rossi" required #lastName="ngModel"
+                   [class.is-invalid]="lastName.invalid && lastName.dirty">
+            <div class="invalid-feedback" *ngIf="lastName.invalid && lastName.dirty">
+              Campo obbligatorio!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="email" class="form-label">Email</label>
+            <input [(ngModel)]="signIn.email" type="email" class="form-control" id="email" name="email"
+                   placeholder="example@mail.com" required email #email="ngModel"
+                   [class.is-invalid]="email.invalid && email.dirty">
+            <div class="invalid-feedback" *ngIf="email.invalid && email.dirty">
+              Inserisci una email corretta!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="password" class="form-label">Password</label>
+            <input [(ngModel)]="signIn.password" type="password" class="form-control" id="password" name="password"
+                   required minlength="8" #password="ngModel" [class.is-invalid]="password.invalid && password.dirty">
+            <div class="invalid-feedback" *ngIf="password.invalid && password.dirty">
+              Deve essere lunga almeno 8 caratteri!
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary mt-4 mb-2">Registrati</button>
+
+          <div class="mt-1">
+            <p>Hai già un account? <a class="link-opacity-100" (click)="goToLogin()">Accedi</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
