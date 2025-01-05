@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environment';
 import {HttpClient} from '@angular/common/http';
-import {catchError, forkJoin, map, Observable, switchMap} from 'rxjs';
+import {catchError, forkJoin, map, Observable, of, switchMap} from 'rxjs';
 import {Booking} from '../../models/booking';
 import {RoomService} from './room.service';
 
@@ -27,6 +27,8 @@ export class BookingService {
     * */
 
     return this.http.get<Booking[]>(this.bookingsEndpoint + '/user').pipe(switchMap(bookings => {
+      if (bookings.length === 0) return of([]);
+
       const bookingsWithRooms = bookings.map(booking =>
         this.roomService.getRoom(booking.room_id).pipe(
           map(room => ({...booking, room})),
