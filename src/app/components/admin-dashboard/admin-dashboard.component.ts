@@ -32,6 +32,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  protected loadData(): void {
     this.getCurrentUser();
     this.getAllUsers();
     this.getAllBookings();
