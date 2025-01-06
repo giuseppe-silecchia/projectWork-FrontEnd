@@ -1,0 +1,17 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">ID stanza</th>
+    <th scope="col">Numero Stanza</th>
+    <th scope="col">Capienza (persone)</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let room of rooms">
+    <th>{{ room.id }}</th>
+    <td>{{ room.room_number }}</td>
+    <td>{{ room.max_people }}</td>
+  </tr>
+  </tbody>
+</table>
