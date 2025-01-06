@@ -18,7 +18,15 @@ export class UserService {
   }
 
   updateSelfInformation(user: User): Observable<Object> {
-    console.log(user.password);
     return this.http.patch(`${this.userEndpoint}/me`, user);
+  }
+
+  getSystemUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.userEndpoint}`);
+  }
+
+  makeUserAdmin(user: User, toAdmin: boolean): Observable<any> {
+    user.isAdmin = toAdmin;
+    return this.http.patch<User>(`${this.userEndpoint}/${user.id}`, user);
   }
 }

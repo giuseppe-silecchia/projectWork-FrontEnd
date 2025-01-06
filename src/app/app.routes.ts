@@ -8,10 +8,16 @@ import {BookingComponent} from './components/booking/booking.component';
 import {HomeComponent} from './components/home/home.component';
 import {ReservationComponent} from './components/reservation/reservation.component';
 import {UserComponent} from './components/user/user.component';
+import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
+import {AdminGuard} from './guards/admin.gaurd';
 
 export const routes: Routes = [
   {
-    path: '', component: AppViewerComponent, canActivate: [AuthGuard], children: [
+    path: '',
+    component: AppViewerComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    children: [
       {
         path: '',
         redirectTo: 'home',
@@ -32,7 +38,13 @@ export const routes: Routes = [
       {
         path: 'profilo', // Sotto rotta
         component: UserComponent
+      },
+      {
+        path: 'dashboard',  // Sotto rotta
+        component: AdminDashboardComponent,
+        canActivate: [AdminGuard]
       }
+
     ],
   },
   {path: 'register', component: RegisterComponent},

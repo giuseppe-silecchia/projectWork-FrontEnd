@@ -1,19 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
+import {UserService} from '../../services/models/user.service';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [NgbCollapse],
+  imports: [NgbCollapse, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isCollapsed = false;
 
-  constructor(private authService: AuthService, private toasterService: ToastrService, private router: Router,) {
+  isAdmin: boolean = false;
+
+  constructor(private authService: AuthService, private userService: UserService, private toasterService: ToastrService, private router: Router,) {
+  }
+
+  ngOnInit() {
+    this.checkIfUserIsAdmin();
   }
 
   goToHome(): void {
@@ -42,4 +50,13 @@ export class NavbarComponent {
     return this.router.url === route;
   }
 
+  goToDashboard(): void {
+    this.router.navigate(['dashboard']);
+  }
+
+  private checkIfUserIsAdmin() {
+    this.userService.getSelfInformation().subscribe(user => {
+      this.isAdmin = user.isAdmin;
+    });
+  }
 }

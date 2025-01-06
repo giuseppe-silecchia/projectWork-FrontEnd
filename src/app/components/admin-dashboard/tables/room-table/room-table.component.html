@@ -1,0 +1,89 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">ID stanza</th>
+    <th scope="col">Numero Stanza</th>
+    <th scope="col">Capienza (persone)</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let room of rooms">
+    <th>{{ room.id }}</th>
+    <td>{{ room.room_number }}</td>
+    <td>{{ room.max_people }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="form-container w-100 d-flex flex-row mt-3 mb-5">
+  <div class="createRoom-wrapper style=" style="width: 35%">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-login" (ngSubmit)="submitCreateRoom(createRoomForm)" #createRoomForm="ngForm">
+          <h1 class="h3 mb-3 font-weight-normal">Crea Stanza</h1>
+          <div class="mt-1">
+            <label for="roomNumber" class="form-label">Numero stanza</label>
+            <input [(ngModel)]="roomToCreate.room_number" type="text" class="form-control" id="roomNumber"
+                   name="roomNumber"
+                   placeholder="es. 102" required #roomNumber="ngModel"
+                   [class.is-invalid]="roomNumber.invalid && roomNumber.dirty">
+            <div class="invalid-feedback" *ngIf="roomNumber.invalid && roomNumber.dirty">
+              Campo Richiesto!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="capacity" class="form-label">Capacità</label>
+            <input [(ngModel)]="roomToCreate.max_people" type="number" min="1" class="form-control" id="capacity"
+                   name="capacity"
+                   required minlength="8" #capacity="ngModel" [class.is-invalid]="capacity.invalid && capacity.dirty">
+          </div>
+
+          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Crea</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="flex-fill"></div>
+
+  <div class="card" style="width: 35%">
+    <div class="card-body">
+      <h1 class="h3 mb-3 font-weight-normal">Modifica Stanza</h1>
+
+      <div class="mt-1">
+        <label for="editRoom" class="form-label">Seleziona stanza</label>
+        <select class="form-select" aria-label=".form-select" name="editRoom" id="editRoom"
+                [(ngModel)]="selectedRoomToEdit" (ngModelChange)="onRoomSelected($event)">
+          <option [ngValue]="null" disabled selected>Seleziona Stanza</option>
+          <option *ngFor="let room of rooms" [ngValue]="room">
+            Stanza {{ room.room_number }} - {{ room.max_people }} persone
+          </option>
+        </select>
+      </div>
+      <form class="form-editRoom" (ngSubmit)="submitEditRoom(editRoomForm)" #editRoomForm="ngForm">
+        @if (selectedRoomToEdit && roomToEdit) {
+          <div class="mt-1">
+            <label for="editRoomNumber" class="form-label">Numero stanza</label>
+            <input [(ngModel)]="roomToEdit.room_number" type="text" class="form-control" id="editRoomNumber"
+                   name="editRoomNumber"
+                   placeholder="es. 102" required #editRoomNumber="ngModel"
+                   [class.is-invalid]="editRoomNumber.invalid && editRoomNumber.dirty">
+            <div class="invalid-feedback" *ngIf="editRoomNumber.invalid && editRoomNumber.dirty">
+              Campo Richiesto!
+            </div>
+          </div>
+          <div class="mt-1">
+            <label for="editCapacity" class="form-label">Capacità</label>
+            <input [(ngModel)]="roomToEdit.max_people" type="number" min="1" class="form-control" id="editCapacity"
+                   name="editCapacity"
+                   required #editCapacity="ngModel" [class.is-invalid]="editCapacity.invalid && editCapacity.dirty">
+          </div>
+
+          <button type="submit" [disabled]="editRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Modifica</button>
+        }
+      </form>
+    </div>
+  </div>
+</div>
