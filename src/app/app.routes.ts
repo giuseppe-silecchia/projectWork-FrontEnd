@@ -13,7 +13,11 @@ import {AdminGuard} from './guards/admin.gaurd';
 
 export const routes: Routes = [
   {
-    path: '', component: AppViewerComponent, canActivate: [AuthGuard], children: [
+    path: '',
+    component: AppViewerComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    children: [
       {
         path: '',
         redirectTo: 'home',
@@ -38,7 +42,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',  // Sotto rotta
         component: AdminDashboardComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AdminGuard]
       }
 
     ],
