@@ -9,6 +9,7 @@ import {HomeComponent} from './components/home/home.component';
 import {ReservationComponent} from './components/reservation/reservation.component';
 import {UserComponent} from './components/user/user.component';
 import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
+import {AdminGuard} from './guards/admin.gaurd';
 
 export const routes: Routes = [
   {
@@ -36,8 +37,8 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',  // Sotto rotta
-        component: AdminDashboardComponent
-        // TODO GESTISCI I PERMESSI!
+        component: AdminDashboardComponent,
+        canActivate: [AuthGuard, AdminGuard]
       }
 
     ],
