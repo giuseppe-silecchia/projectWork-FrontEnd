@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">ID utente</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Cognome</th>
+    <th scope="col">Email</th>
+    <th scope="col">Amministratore</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <th>{{ user.id }}</th>
+    <td>{{ user.first_name }}</td>
+    <td>{{ user.last_name }}</td>
+    <td>{{ user.email }}</td>
+    <td>
+      <button [disabled]="currentUser.id === user.id" type="button" class="btn btn-primary w-100"
+              (click)="changeUserRole(user,!user.isAdmin)">
+        {{ user.isAdmin ? "Si" : "No" }}
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
