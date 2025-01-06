@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    const isAuthenticated = this.checkAuthentication(); // demo logic
+    const isAuthenticated = this.checkAuthentication();
 
     if (!isAuthenticated) {
       // Se non autenticato, reindirizza al login
