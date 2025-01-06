@@ -1,39 +1,18 @@
 <div class="container d-flex flex-column mt-3 h-100">
-  <div class="bookings-container">
+  <div class="bookings-container mt-2 mb-2">
     <h5>Tutte le prenotazioni</h5>
     @if (bookings.length > 0) {
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">ID prenotazione</th>
-          <th scope="col">Check In</th>
-          <th scope="col">Check Out</th>
-          <th scope="col">Stanza prenotata</th>
-          <th scope="col">Prenotante</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let booking of bookings">
-          <th>{{ booking.id }}</th>
-          <td>{{ booking.check_in | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ booking.check_out  | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ booking.room?.room_number }}</td>
-          <td>{{ getPersonNameFromBooking(booking) }}</td>
-        </tr>
-        </tbody>
-      </table>
-
+      <app-booking-table [bookings]="bookings" [users]="users"></app-booking-table>
     } @else {
       <h6 class="mt-4">Nessuna prenotazione trovata</h6>
     }
   </div>
 
-  <div class="users-container mt-2">
+  <div class="users-container mt-2 mb-2">
     <h5>Tutti gli utenti</h5>
     <p>Puoi cambiare il ruolo dell'utente</p>
     @if (users.length > 0 && currentUser) {
       <app-user-table [currentUser]="currentUser" [users]="users"></app-user-table>
-
     } @else {
       <h6 class="mt-4">Nessuna prenotazione trovata</h6>
     }

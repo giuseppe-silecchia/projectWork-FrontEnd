@@ -4,16 +4,15 @@ import {BookingService} from '../../services/models/booking.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastrService} from 'ngx-toastr';
 import {User} from '../../models/user';
-import {DatePipe, NgForOf} from '@angular/common';
 import {UserService} from '../../services/models/user.service';
 import {UserTableComponent} from './tables/user-table/user-table.component';
+import {BookingTableComponent} from './tables/booking-table/booking-table.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   imports: [
-    NgForOf,
-    DatePipe,
-    UserTableComponent
+    UserTableComponent,
+    BookingTableComponent
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
@@ -32,7 +31,6 @@ export class AdminDashboardComponent implements OnInit {
     this.getAllUsers();
     this.getAllBookings();
   }
-
 
   private getCurrentUser() {
     this.loaderService.show();
@@ -77,8 +75,4 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
-  getPersonNameFromBooking(booking: Booking): String {
-    const user = this.users.find(u => u.id === booking.user_id);
-    return user ? `${user.first_name} ${user.last_name}` : 'Utente non trovato';
-  }
 }
