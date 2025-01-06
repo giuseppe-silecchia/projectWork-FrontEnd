@@ -1,1 +1,66 @@
-<p>admin-dashboard works!</p>
+<div class="container d-flex flex-column mt-3 h-100">
+  <div class="bookings-container">
+    <h5>Tutte le prenotazioni</h5>
+    @if (bookings.length > 0) {
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID prenotazione</th>
+          <th scope="col">Check In</th>
+          <th scope="col">Check Out</th>
+          <th scope="col">Stanza prenotata</th>
+          <th scope="col">Prenotante</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let booking of bookings">
+          <th>{{ booking.id }}</th>
+          <td>{{ booking.check_in | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ booking.check_out  | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ booking.room?.room_number }}</td>
+          <td>{{ getPersonNameFromBooking(booking) }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    } @else {
+      <h6 class="mt-4">Nessuna prenotazione trovata</h6>
+    }
+  </div>
+
+  <div class="users-container mt-2">
+    <h5>Tutti gli utenti</h5>
+    <p>Puoi cambiare il ruolo dell'utente</p>
+    @if (users.length > 0) {
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID utente</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Cognome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Amministratore</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <th>{{ user.id }}</th>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button [disabled]="currentUser.id === user.id" type="button" class="btn btn-primary w-100"
+                    (click)="changeUserRole(user,!user.isAdmin)">
+              {{ user.isAdmin ? "Si" : "No" }}
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    } @else {
+      <h6 class="mt-4">Nessuna prenotazione trovata</h6>
+    }
+  </div>
+
+</div>
