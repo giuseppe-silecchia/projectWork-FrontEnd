@@ -18,7 +18,6 @@ export class UserService {
   }
 
   updateSelfInformation(user: User): Observable<Object> {
-    console.log(user.password);
     return this.http.patch(`${this.userEndpoint}/me`, user);
   }
 }

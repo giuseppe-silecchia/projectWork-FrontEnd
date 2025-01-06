@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
     this.userService.getSelfInformation().subscribe({
       next: (user: User) => {
         this.currentUser = user;
-        console.log(user);
+
         this.loaderService.hide();
       }, error: () => {
         this.loaderService.hide();

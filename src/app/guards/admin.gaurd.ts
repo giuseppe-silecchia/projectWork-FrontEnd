@@ -16,7 +16,6 @@ export class AdminGuard implements CanActivate {
     return this.userService.getSelfInformation().pipe(
       take(1), // Prendi solo il primo valore
       switchMap((user: User) => {
-        console.log(user);
         if (user.isAdmin) {
           return new Observable<boolean>((observer) => observer.next(true));
         } else {
