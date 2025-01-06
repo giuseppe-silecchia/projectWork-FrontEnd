@@ -15,3 +15,34 @@
   </tr>
   </tbody>
 </table>
+
+<div class="form-container w-100 ">
+  <div class="createRoom-wrapper">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-login" (ngSubmit)="submitCreateRoom(createRoomForm)" #createRoomForm="ngForm">
+          <h1 class="h3 mb-3 font-weight-normal">Crea Stanza</h1>
+          <div class="mt-1">
+            <label for="roomNumber" class="form-label">Numero stanza</label>
+            <input [(ngModel)]="roomToCreate.room_number" type="text" class="form-control" id="roomNumber" name="roomNumber"
+                   placeholder="es. 102" required #roomNumber="ngModel"
+                   [class.is-invalid]="roomNumber.invalid && roomNumber.dirty">
+            <div class="invalid-feedback" *ngIf="roomNumber.invalid && roomNumber.dirty">
+              Campo Richiesto!
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <label for="capacity" class="form-label">Capacità</label>
+            <input [(ngModel)]="roomToCreate.max_people" type="number" min="1" class="form-control" id="capacity"
+                   name="capacity"
+                   required minlength="8" #capacity="ngModel" [class.is-invalid]="capacity.invalid && capacity.dirty">
+          </div>
+
+          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Crea</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
