@@ -7,12 +7,16 @@ import {User} from '../../models/user';
 import {UserService} from '../../services/models/user.service';
 import {UserTableComponent} from './tables/user-table/user-table.component';
 import {BookingTableComponent} from './tables/booking-table/booking-table.component';
+import {RoomService} from '../../services/models/room.service';
+import {Room} from '../../models/room';
+import {RoomTableComponent} from './tables/room-table/room-table.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   imports: [
     UserTableComponent,
-    BookingTableComponent
+    BookingTableComponent,
+    RoomTableComponent
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
@@ -22,14 +26,16 @@ export class AdminDashboardComponent implements OnInit {
   currentUser!: User;
   users: User[] = [];
   bookings: Booking[] = [];
+  rooms: Room[] = [];
 
-  constructor(private userService: UserService, private bookingService: BookingService, private loaderService: NgxSpinnerService, private toastrService: ToastrService) {
+  constructor(private roomService: RoomService, private userService: UserService, private bookingService: BookingService, private loaderService: NgxSpinnerService, private toastrService: ToastrService) {
   }
 
   ngOnInit() {
     this.getCurrentUser();
     this.getAllUsers();
     this.getAllBookings();
+    this.getAllRooms();
   }
 
   private getCurrentUser() {
@@ -39,21 +45,21 @@ export class AdminDashboardComponent implements OnInit {
         this.currentUser = user;
         this.loaderService.hide();
       },
-      error: (error) => {
+      error: () => {
         this.toastrService.error("Riprovare.", "Errore nel recuperare i dati dell'utente corrente!");
         this.loaderService.hide();
       }
     })
   }
 
-  getAllUsers() {
+  private getAllUsers() {
     this.loaderService.show();
     this.userService.getSystemUsers().subscribe(
       {
         next: (users: User []) => {
           this.users = users;
           this.loaderService.hide();
-        }, error: error => {
+        }, error: () => {
           this.toastrService.error("Riprovare.", "Errore nel recuperare i dati degli Utenti!");
           this.loaderService.hide();
         }
@@ -61,7 +67,7 @@ export class AdminDashboardComponent implements OnInit {
     );
   }
 
-  getAllBookings() {
+  private getAllBookings() {
     this.loaderService.show();
     this.bookingService.getAllBookings().subscribe({
       next: (bookings: Booking[]) => {
@@ -70,6 +76,20 @@ export class AdminDashboardComponent implements OnInit {
       },
       error: () => {
         this.toastrService.error("Riprovare.", "Errore nel recuperare i dati delle prenotazioni!");
+        this.loaderService.hide();
+      }
+    })
+  }
+
+  private getAllRooms() {
+    this.loaderService.show();
+    this.roomService.getRooms().subscribe({
+      next: (rooms: Room[]) => {
+        this.rooms = rooms;
+        this.loaderService.hide();
+      },
+      error: () => {
+        this.toastrService.error("Riprovare.", "Errore nel recuperare i dati delle Stanze!");
         this.loaderService.hide();
       }
     })

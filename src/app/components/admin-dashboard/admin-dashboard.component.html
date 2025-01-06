@@ -18,4 +18,14 @@
     }
   </div>
 
+  <div class="rooms-container mt-2 mb-2">
+    <h5>Tutte le stanze dell'Hotel</h5>
+    <p>Puoi Creare o modificare una stanza</p>
+    @if (rooms.length > 0) {
+      <app-room-table [rooms]="rooms"></app-room-table>
+    } @else {
+      <h6 class="mt-4">Nessuna stanza trovata</h6>
+    }
+  </div>
+
 </div>
