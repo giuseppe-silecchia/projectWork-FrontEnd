@@ -22,15 +22,18 @@ export class RoomTableComponent {
   @Output("reloadParentData") reloadParentData: EventEmitter<any> = new EventEmitter();
 
   roomToCreate: Room = <Room>{max_people: 1};
+  selectedRoomToEdit: Room | null = null;
+  roomToEdit?: Room | null = null;
 
   constructor(private roomService: RoomService, private loaderService: NgxSpinnerService, private toastrService: ToastrService) {
   }
 
-  submitCreateRoom(editRoomForm: NgForm): void {
-    if (editRoomForm.invalid) return;
+  submitCreateRoom(createRoomForm: NgForm): void {
+    if (createRoomForm.invalid) return;
 
     this.roomService.addRoom(this.roomToCreate).subscribe({
       next: () => {
+        createRoomForm.resetForm();
         this.loaderService.hide();
         this.toastrService.success('Stanza aggiunta con successo!');
         this.reloadParentData.emit();
@@ -44,4 +47,34 @@ export class RoomTableComponent {
       }
     });
   }
+
+  submitEditRoom(editRoomForm: NgForm): void {
+    if (editRoomForm.invalid && !this.roomToEdit) return;
+
+    this.roomService.editRoom(this.roomToEdit!).subscribe({
+        next: () => {
+          editRoomForm.resetForm();
+          this.loaderService.hide();
+          this.toastrService.success('Stanza aggiornata con successo!');
+          this.reloadParentData.emit();
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          if (error.status === 500) {
+            this.toastrService.error('Errore.', `Stanza ${this.roomToEdit!.room_number} già esistente`)
+          } else
+            this.toastrService.error('Errore.', 'Riprovare.')
+        }
+      }
+    );
+  }
+
+  onRoomSelected(room: Room) {
+    if (room) {
+      this.selectedRoomToEdit = room;
+      this.roomToEdit = Object.create(this.selectedRoomToEdit);
+    }
+  }
+
+  protected readonly Object = Object;
 }
