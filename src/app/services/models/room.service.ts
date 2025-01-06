@@ -16,8 +16,13 @@ export class RoomService {
   getRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(this.roomsEndpoint);
   }
-  getRoom(id:number): Observable<Room> {
+
+  getRoom(id: number): Observable<Room> {
     return this.http.get<Room>(`${this.roomsEndpoint}/${id}`);
+  }
+
+  addRoom(room: Room): Observable<any> {
+    return this.http.post<any>(`${this.roomsEndpoint}`, room);
   }
 
   getAvailableRooms(checkIn: string, checkOut: string): Observable<Room[]> {
