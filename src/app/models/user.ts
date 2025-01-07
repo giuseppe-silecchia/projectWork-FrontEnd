@@ -1,8 +1,8 @@
-export interface User {
+export interface User {    // interfaccia rappresentate l'utente
   id: number;
   first_name: string;
   last_name: string;
   email: string;
-  password: string; // used only for password change
+  password: string;
   isAdmin: boolean;
 }
