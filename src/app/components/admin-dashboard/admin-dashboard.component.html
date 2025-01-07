@@ -2,7 +2,7 @@
   <div class="bookings-container mt-2 mb-2">
     <h5>Tutte le prenotazioni</h5>
     @if (bookings.length > 0) {
-      <app-booking-table [bookings]="bookings" [users]="users"></app-booking-table>
+      <app-booking-table [bookings]="bookings" [users]="users" (reloadParentData)="loadData()"></app-booking-table>
     } @else {
       <h6 class="mt-4">Nessuna prenotazione trovata</h6>
     }
