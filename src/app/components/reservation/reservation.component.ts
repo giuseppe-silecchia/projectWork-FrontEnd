@@ -19,9 +19,10 @@ export class ReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData();
+    this.loadData();  // Carica i dati all'inizializzazione del componente
   }
 
+  // Metodo per annullare una prenotazione
   cancelReservation(booking: Booking) {
     this.loaderService.show();
     this.bookingService.cancelBooking(booking).subscribe({
@@ -35,6 +36,7 @@ export class ReservationComponent implements OnInit {
     })
   }
 
+  // Metodo per caricare i dati (prenotazioni dell'utente)
   private loadData() {
     this.loaderService.show();
     this.bookingService.getUserBookings().subscribe({
@@ -49,10 +51,13 @@ export class ReservationComponent implements OnInit {
     })
   }
 
+  // Metodo per verificare se una prenotazione può essere cancellata
   canCancel(booking: Booking): boolean {
     const currentDate = new Date();
     const checkInDate = new Date(booking.check_in);
 
+    /* Ritorna true se la data corrente è prima della data di check-in,
+     quindi la prenotazione può essere cancellata*/
     return currentDate < checkInDate;
   }
 
