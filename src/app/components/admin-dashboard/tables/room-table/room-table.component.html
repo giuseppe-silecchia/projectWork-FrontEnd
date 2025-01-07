@@ -46,7 +46,7 @@
                    required minlength="8" #capacity="ngModel" [class.is-invalid]="capacity.invalid && capacity.dirty">
           </div>
 
-          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Crea</button>
+          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2 w-100">Crea</button>
 
         </form>
       </div>
@@ -87,7 +87,7 @@
                    required #editCapacity="ngModel" [class.is-invalid]="editCapacity.invalid && editCapacity.dirty">
           </div>
 
-          <button type="submit" [disabled]="editRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Modifica</button>
+          <button type="submit" [disabled]="editRoomForm.invalid" class="btn btn-primary mt-4 mb-2 w-100">Modifica</button>
         }
       </form>
     </div>
