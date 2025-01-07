@@ -51,6 +51,7 @@ export class RoomTableComponent {
   submitEditRoom(editRoomForm: NgForm): void {
     if (editRoomForm.invalid && !this.roomToEdit) return;
 
+    this.loaderService.show();
     this.roomService.editRoom(this.roomToEdit!).subscribe({
         next: () => {
           editRoomForm.resetForm();
@@ -76,5 +77,24 @@ export class RoomTableComponent {
     }
   }
 
-  protected readonly Object = Object;
+  deleteRoom(room: Room) {
+    this.loaderService.show();
+
+    this.roomService.deleteRoom(room).subscribe(
+      {
+        next: () => {
+          this.loaderService.hide();
+          this.toastrService.success('Stanza eliminata con successo!');
+          this.reloadParentData.emit();
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          if (error.status === 500) {
+            this.toastrService.error('Errore.', `La stanza ha delle prenotazioni associate!`)
+          } else
+            this.toastrService.error('Errore.', 'Riprovare.')
+        }
+      }
+    );
+  }
 }

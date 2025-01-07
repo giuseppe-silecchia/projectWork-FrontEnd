@@ -4,7 +4,7 @@
     <th scope="col">ID stanza</th>
     <th scope="col">Numero Stanza</th>
     <th scope="col">Capienza (persone)</th>
-
+    <th scope="col">Azione</th>
   </tr>
   </thead>
   <tbody>
@@ -12,6 +12,11 @@
     <th>{{ room.id }}</th>
     <td>{{ room.room_number }}</td>
     <td>{{ room.max_people }}</td>
+    <td>
+      <button type="button" class="btn btn-danger w-100"
+              (click)="deleteRoom(room)">
+        Rimuovi Stanza
+      </button>
   </tr>
   </tbody>
 </table>

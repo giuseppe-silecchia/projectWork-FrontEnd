@@ -21,6 +21,10 @@ export class RoomService {
     return this.http.get<Room>(`${this.roomsEndpoint}/${id}`);
   }
 
+  deleteRoom(room:Room): Observable<any> {
+    return this.http.delete<any>(`${this.roomsEndpoint}/${room.id}`);
+  }
+
   addRoom(room: Room): Observable<any> {
     return this.http.post<any>(`${this.roomsEndpoint}`, room);
   }
