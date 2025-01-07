@@ -22,17 +22,17 @@ export class UserComponent implements OnInit {
   constructor(private loaderService: NgxSpinnerService, private userService: UserService, private toasterService: ToastrService) {
   }
 
+  // Al caricamento del componente, recupera le informazioni dell'utente
   ngOnInit() {
     this.getSelfInformation();
   }
 
-
+  // Metodo per ottenere le informazioni dell'utente
   getSelfInformation() {
     this.loaderService.show();
     this.userService.getSelfInformation().subscribe({
       next: (user: User) => {
         this.currentUser = user;
-
         this.loaderService.hide();
       }, error: () => {
         this.loaderService.hide();
@@ -41,6 +41,7 @@ export class UserComponent implements OnInit {
     });
   }
 
+  // Metodo per inviare il form di aggiornamento dell'utente
   submitUserForm(userForm: NgForm) {
     if (!userForm.valid || !this.currentUser) return;
 
