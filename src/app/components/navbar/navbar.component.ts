@@ -21,14 +21,19 @@ export class NavbarComponent {
     this.isAdmin = this.userSerivce.userIsAdmin();
   }
 
-  goToHome(): void {
-    this.router.navigate(['home']).then();
-  }
-
+  /*
+  * Metodo chiamato dal pulsante Logout
+  * Chiama il metodo dell'authservice per procedere con il logout
+  * e mostra un messaggio di stato.
+  * */
   logout(): void {
     this.authService.signOut();
     this.router.navigate(['login']).then();
     this.toasterService.info('Logout effettuato!');
+  }
+
+  goToHome(): void {
+    this.router.navigate(['home']).then();
   }
 
   goToBookPage(): void {

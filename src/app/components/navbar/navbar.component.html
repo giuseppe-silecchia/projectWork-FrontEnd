@@ -23,6 +23,7 @@
             prenotazioni</a>
         </li>
       } @else {
+        <!-- Elementi della barra di navigazioni disponibili solo agli utenti amministratori -->
         <li class="nav-item">
           <a href="" class="nav-link" *ngIf="isAdmin" [class.active]="currentRoute('/dashboard')"
              (click)="goToDashboard()">Dashboard</a>
