@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from '../../services/models/user.service';
 import {NgIf} from '@angular/common';
+import {UserService} from '../../services/models/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,38 +12,35 @@ import {NgIf} from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   isCollapsed = false;
 
   isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private userService: UserService, private toasterService: ToastrService, private router: Router,) {
-  }
-
-  ngOnInit() {
-    this.checkIfUserIsAdmin();
+  constructor(private authService: AuthService, private userSerivce: UserService, private toasterService: ToastrService, private router: Router,) {
+    this.isAdmin = this.userSerivce.userIsAdmin();
   }
 
   goToHome(): void {
-    this.router.navigate(['home']);
+    this.router.navigate(['home']).then();
   }
 
   logout(): void {
     this.authService.signOut();
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).then();
     this.toasterService.info('Logout effettuato!');
   }
 
   goToBookPage(): void {
-    this.router.navigate(['prenota']);
+    this.router.navigate(['prenota']).then();
   }
 
   goToReservationPage(): void {
-    this.router.navigate(['prenotazioni']);
+    this.router.navigate(['prenotazioni']).then();
   }
 
   goToProfile(): void {
-    this.router.navigate(['profilo']);
+    this.router.navigate(['profilo']).then();
   }
 
   currentRoute(route: String): boolean {
@@ -51,12 +48,6 @@ export class NavbarComponent implements OnInit {
   }
 
   goToDashboard(): void {
-    this.router.navigate(['dashboard']);
-  }
-
-  private checkIfUserIsAdmin() {
-    this.userService.getSelfInformation().subscribe(user => {
-      this.isAdmin = user.isAdmin;
-    });
+    this.router.navigate(['dashboard']).then();
   }
 }
