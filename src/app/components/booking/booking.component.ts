@@ -30,6 +30,10 @@ export class BookingComponent {
 
   protected availableRooms: Room[] = [];
 
+  /*
+  * Metodo per validare le date di check-in e check-out.
+  * Imposta dateError a true se la data di check-in è successiva a quella di check-out.
+  * */
   validateDates() {
     const checkInDate = new Date(this.booking.check_in);
     const checkOutDate = new Date(this.booking.check_out);
@@ -37,11 +41,18 @@ export class BookingComponent {
     this.dateError = checkInDate && checkOutDate ? checkInDate >= checkOutDate : false
   }
 
+  /*
+  * Metodo per inviare il form di verifica della disponibilità delle camere.
+  * Se il form è valido, chiama getFilteredRooms per ottenere le camere disponibili.
+  * */
   submitCheckRoomForm(checkRoomForm: NgForm) {
     if (checkRoomForm.invalid) return;
     this.getFilteredRooms(this.booking.check_in, this.booking.check_out, this.booking.people);
   }
 
+  /*
+  * Metodo per resettare il form e la lista delle camere disponibili.
+  * */
   resetForm(checkRoomForm: NgForm) {
     this.availableRooms = [];
     this.readonly = false;
@@ -49,6 +60,10 @@ export class BookingComponent {
     this.booking = <Booking>{people: 1};
   }
 
+  /*
+  * Ottiene le camere disponibili in base alle date di check-in, check-out e al numero di persone.
+  * Filtra le camere in base al numero massimo di persone.
+  * */
   getFilteredRooms(checkIn: string, checkOut: string, people: number): void {
     this.loaderService.show();
     this.roomService.getAvailableRooms(checkIn, checkOut).subscribe({
@@ -63,9 +78,12 @@ export class BookingComponent {
         this.toasterService.error("Riprovare.", "Errore!");
       }
     })
-
   }
 
+  /*
+  * Metodo per effettuare la prenotazione della camera. Se la camera ha un ID valido,
+  * crea la prenotazione tramite BookingService
+  * */
   bookRoom(form: NgForm, room: Room) {
     if (room.id == null) return;
 
