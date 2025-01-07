@@ -7,10 +7,24 @@ import {Router} from '@angular/router';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {
+    /*
+    Inizializza l'interceptor con AuthService per gestire il token di autenticazione e Router per la navigazione.
+    * */
   }
 
+  /*
+  * L'interceptor è progettato per intercettare tutte le richieste HTTP e aggiungere un token di autorizzazione
+  * nell'intestazione delle richieste, se presente.
+  * Inoltre, gestisce gli errori 401 (non autorizzato) e 422 (entità non processabile),
+  * eseguendo il logout e redirigendo l'utente alla pagina di login.
+  * */
+
+  // Intercetta ogni richiesta HTTP prima che venga inviata al server
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getAuthToken();
+    const token = this.authService.getAuthToken();  // recupera il token di autenticazione
+
+    /*Se il token è presente, clona la richiesta originale e aggiunge l'intestazione Authorization
+    con il formato Bearer token*/
 
     if (token) {
       request = request.clone({
@@ -21,7 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
+          /*Se è presente un errore di autenticazione o di validazione del token viene fatta un logout e una redirect*/
+          if (err.status === 401 || err.status === 422) {
             this.authService.signOut();
             this.goToLogin();
           }
@@ -32,6 +47,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   goToLogin(): void {
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).then();
   }
 }
