@@ -10,6 +10,11 @@ export class AdminGuard implements CanActivate {
   constructor(private router: Router, private userService: UserService, private toastrService: ToastrService) {
   }
 
+  /*
+  * L'AuthGuard viene utilizzato dall'applicazione per proteggere determinate pagine se l'utente non è un amministratore.
+  * Implementa solo l' interfaccia CanActivate, perchè protegge solo rotte principali (senza figli).
+  * */
+
   canActivate(): boolean {
     const isAdmin = this.checkIsAdminValue();
 
