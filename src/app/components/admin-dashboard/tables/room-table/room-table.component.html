@@ -4,7 +4,7 @@
     <th scope="col">ID stanza</th>
     <th scope="col">Numero Stanza</th>
     <th scope="col">Capienza (persone)</th>
-
+    <th scope="col">Azione</th>
   </tr>
   </thead>
   <tbody>
@@ -12,6 +12,12 @@
     <th>{{ room.id }}</th>
     <td>{{ room.room_number }}</td>
     <td>{{ room.max_people }}</td>
+    <td>
+      <button type="button" class="btn btn-danger w-100"
+              (click)="deleteRoom(room)">
+        Rimuovi Stanza
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
@@ -40,7 +46,7 @@
                    required minlength="8" #capacity="ngModel" [class.is-invalid]="capacity.invalid && capacity.dirty">
           </div>
 
-          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Crea</button>
+          <button type="submit" [disabled]="createRoomForm.invalid" class="btn btn-primary mt-4 mb-2 w-100">Crea</button>
 
         </form>
       </div>
@@ -81,7 +87,7 @@
                    required #editCapacity="ngModel" [class.is-invalid]="editCapacity.invalid && editCapacity.dirty">
           </div>
 
-          <button type="submit" [disabled]="editRoomForm.invalid" class="btn btn-primary mt-4 mb-2">Modifica</button>
+          <button type="submit" [disabled]="editRoomForm.invalid" class="btn btn-primary mt-4 mb-2 w-100">Modifica</button>
         }
       </form>
     </div>

@@ -14,6 +14,9 @@ export class BookingService {
   constructor(private http: HttpClient, private roomService: RoomService) {
   }
 
+  /*
+   * Aggiunge una nuova prenotazione al sistema inviando l'oggetto Booking al backend.
+   * */
   createBooking(booking: Booking): Observable<Object> {
     return this.http.post(this.bookingsEndpoint, booking);
   }
@@ -66,6 +69,10 @@ export class BookingService {
     }));
   }
 
+  /*
+  * Elimina una prenotazione identificata dal suo id.
+  * Effettua una richiesta di HTTP di tipo DELETE
+  * */
   cancelBooking(booking: Booking): Observable<Object> {
     return this.http.delete(`${this.bookingsEndpoint}/${booking.id}`);
   }

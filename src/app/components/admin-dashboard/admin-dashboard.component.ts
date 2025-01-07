@@ -28,18 +28,25 @@ export class AdminDashboardComponent implements OnInit {
   bookings: Booking[] = [];
   rooms: Room[] = [];
 
+  /*
+  * Questo componente si occupa di far visualizzare all'amministratore del sistema
+  * tutti i dati necessari alla gestione di quest'ultimo.
+  *
+  * */
+
   constructor(private roomService: RoomService, private userService: UserService, private bookingService: BookingService, private loaderService: NgxSpinnerService, private toastrService: ToastrService) {
   }
 
+  // Carica i dati quando il componente è inizializzato
   ngOnInit() {
     this.loadData();
   }
 
   protected loadData(): void {
-    this.getCurrentUser();
-    this.getAllUsers();
-    this.getAllBookings();
-    this.getAllRooms();
+    this.getCurrentUser();  // Recupera i dati dell'utente corrente
+    this.getAllUsers();     // Recupera tutti gli utenti
+    this.getAllBookings();  // Recupera tutte le prenotazioni
+    this.getAllRooms();     // Recupera tutte le stanze
   }
 
   private getCurrentUser() {

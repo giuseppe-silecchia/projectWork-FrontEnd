@@ -13,13 +13,13 @@ import {AdminGuard} from './guards/admin.gaurd';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: '',                         //route generale
     component: AppViewerComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],         // raggiungibile solo se l'utente è autenticato
+    canActivateChild: [AuthGuard],    // figli raggiungibili solo se l'utente è autenticato
     children: [
       {
-        path: '',
+        path: '',                     // se il path coincide a stringa vuota redirecta l'utente alla home
         redirectTo: 'home',
         pathMatch: 'full',
       },
@@ -42,7 +42,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',  // Sotto rotta
         component: AdminDashboardComponent,
-        canActivate: [AdminGuard]
+        canActivate: [AdminGuard]         // rotta raggiungibile solo se l'utente è amministratore
       }
 
     ],
@@ -50,5 +50,5 @@ export const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'notfound', component: NotFoundComponent},
-  {path: '**', redirectTo: 'notfound'} // Redirect per route non trovata
+  {path: '**', redirectTo: 'notfound'}    // Redirect per route non trovata
 ];

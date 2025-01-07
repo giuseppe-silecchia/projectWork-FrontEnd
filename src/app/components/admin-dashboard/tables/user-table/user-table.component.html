@@ -10,7 +10,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let user of users">
-    <th>{{ user.id }}</th>
+    <th>{{ user.id }} {{currentUser.id === user.id?"(In uso)":""}}</th>
     <td>{{ user.first_name }}</td>
     <td>{{ user.last_name }}</td>
     <td>{{ user.email }}</td>

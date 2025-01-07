@@ -9,6 +9,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private authService: AuthService) {
   }
 
+  /*
+  * L'AuthGuard viene utilizzato dall'applicazione per proteggere determinate pagine se l'utente non è autenticato.
+  * Implementa due interfacce: CanActivate e CanActivateChild,
+  * per proteggere sia le rotte principali che quelle figlie.
+  * */
+
   canActivate(): boolean {
     const isAuthenticated = this.checkAuthentication();
 

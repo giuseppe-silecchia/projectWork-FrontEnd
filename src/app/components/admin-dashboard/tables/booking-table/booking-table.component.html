@@ -6,6 +6,7 @@
     <th scope="col">Check Out</th>
     <th scope="col">Stanza prenotata</th>
     <th scope="col">Prenotante</th>
+    <th scope="col">Azione</th>
   </tr>
   </thead>
   <tbody>
@@ -15,6 +16,12 @@
     <td>{{ booking.check_out  | date: 'dd/MM/yyyy' }}</td>
     <td>{{ booking.room?.room_number }}</td>
     <td>{{ getPersonNameFromBooking(booking) }}</td>
+    <td>
+      <button type="button" class="btn btn-danger w-100"
+              (click)="deleteBooking(booking)">
+        Rimuovi Prenotazione
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
