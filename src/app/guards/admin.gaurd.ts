@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
-import {UserService} from '../services/models/user.service';
-import {Observable, switchMap, take} from 'rxjs';
-import {User} from '../models/user';
 import {ToastrService} from 'ngx-toastr';
+import {UserService} from '../services/models/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +10,21 @@ export class AdminGuard implements CanActivate {
   constructor(private router: Router, private userService: UserService, private toastrService: ToastrService) {
   }
 
-  canActivate(): Observable<boolean> {
-    return this.userService.getSelfInformation().pipe(
-      take(1), // Prendi solo il primo valore
-      switchMap((user: User) => {
-        if (user.isAdmin) {
-          return new Observable<boolean>((observer) => observer.next(true));
-        } else {
-          this.router.navigate(['/']); // Naviga versola home
-          this.toastrService.info('Non sei autorizzato ad accedere alla risorsa','Errore!');
-          return new Observable<boolean>((observer) => observer.next(false));
-        }
-      }))
+  canActivate(): boolean {
+    const isAdmin = this.checkIsAdminValue();
+
+    if (!isAdmin) {
+      // Se non admin, reindirizza alla route princiaple
+      this.router.navigate(['/']).then();
+      this.toastrService.info('Non sei autorizzato ad accedere alla risorsa', 'Errore!');
+      return false;
+    }
+    return true; // Consenti l'accesso alla rotta
+  }
+
+  // Logica per verificare se l'utente è un Admin
+  private checkIsAdminValue(): boolean {
+    console.log(this.userService.userIsAdmin());
+    return this.userService.userIsAdmin();
   }
 }
